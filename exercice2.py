@@ -1,7 +1,7 @@
 import socket
 import math
 import time
-
+import base64
 
 class IRC:
     def __init__(self, name, channel, server="irc.root-me.org", port=6667):
@@ -55,6 +55,15 @@ if __name__ == "__main__":
     client.send_private_message("Candy", "!ep2")
     response = client.get_response()
     print(response)
+    # Splitting response
+    response = response.split(":")
+    response = response[-1].split("\r\n")
+    answer = response[0]
+    print(answer)
+    answer = base64.b64decode(answer.encode('utf-8'))
+    client.send_full_command(f"PRIVMSG Candy !ep2 -rep {answer}")
+    print(client.get_response())
+
 
     while True:
         message = input("\nMessage to Candy\n>")
