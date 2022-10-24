@@ -60,7 +60,8 @@ if __name__ == "__main__":
     response = response[-1].split("\r\n")
     answer = response[0]
     print(answer)
-    answer = base64.b64decode(answer.encode('utf-8'))
+    answer = base64.b64decode(answer).decode()
+    print(answer)
     client.send_full_command(f"PRIVMSG Candy !ep2 -rep {answer}")
     print(client.get_response())
 
